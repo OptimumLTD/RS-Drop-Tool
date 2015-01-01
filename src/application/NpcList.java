@@ -44,7 +44,7 @@ public class NpcList {
 		int counter = 0;
 		boolean endOfFile = false;
 		try {
-			file = new BufferedReader(new FileReader("src/application/npclist.txt"));
+			file = new BufferedReader(new FileReader("./data/npclist.txt"));
 		} catch (FileNotFoundException fileex) {
 			fileex.printStackTrace();
 		}

@@ -39,7 +39,7 @@ public class ItemList {
 		int counter = 0;
 		boolean endOfFile = false;
 		try {
-			file = new BufferedReader(new FileReader("src/application/itemlist.txt"));
+			file = new BufferedReader(new FileReader("./data/itemlist.txt"));
 		} catch (FileNotFoundException fileex) {
 			fileex.printStackTrace();
 		}
