@@ -73,7 +73,7 @@ public class NpcRareDropTable {
 	 * @param i - The targeted npc id
 	 */
 	public static void process(int i){
-		int newChance = Misc.random(400 / NpcList.npcHealth[i]);
+		int newChance = Misc.random(400 / NpcList.getNpcIndexId(i));
 			if(newChance == 0) {
 				for(int i2 = 0; i2 < npcs.length; i2++) {
 					if(NpcList.npcId[i] == npcs[i2]) {

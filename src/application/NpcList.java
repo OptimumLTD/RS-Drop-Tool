@@ -66,4 +66,30 @@ public class NpcList {
 			}
 		}
 	}
+	
+	/**
+	 * Get Npcs the npc id by it's name
+	 */
+	public static int getNpcIdByName(String name){
+		for(int i = 0; i < 6800; i++){
+			if(npcName.equals(name)){
+				return i;
+			}
+		}
+		return -1;
+	}
+	
+	/**
+	 * Gets the npc's index value
+	 * @param npc - the npc's id
+	 * @return the index value
+	 */
+	public static int getNpcIndexId(int npc){
+		for(int i = 0; i < 6800; i++){
+			if(npcId[i] == npc){
+				return i;
+			}
+		}
+		return -1;
+	}
 }

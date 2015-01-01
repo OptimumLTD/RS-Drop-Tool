@@ -2,7 +2,6 @@ package application;
 	
 import java.awt.image.BufferedImage;
 import java.io.IOException;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.text.NumberFormat;
 import java.util.Locale;
@@ -152,15 +151,11 @@ public class Main extends Application {
 	 * @param itemId - The item id.
 	 */
 	public static void addPicture(int index, int itemId){
-		int newSpriteId = itemId;
-		if(itemId == 995){
-			newSpriteId = 1004;
-		}
 		BufferedImage image = null;
 		WritableImage wr = null;
 		try {
 			System.out.println("newImage: " + itemId);
-			URL url = new URL("http://dropsimulator.comuv.com/Sprite%20Cache/images/" + newSpriteId + ".png");
+			URL url = new URL("http://dropsimulator.comuv.com/Sprite%20Cache/images/" + itemId + ".png");
 			image = ImageIO.read(url);
 			wr = new WritableImage(image.getWidth(), image.getHeight());
 			PixelWriter pw = wr.getPixelWriter();
@@ -169,14 +164,10 @@ public class Main extends Application {
                     pw.setArgb(x, y, image.getRGB(x, y));
                 }
             }
-		} catch (MalformedURLException e1) {
-			e1.printStackTrace();
 		} catch (IOException e) {
 			e.printStackTrace();
-		}		
-		try{
-			if(wr == null)
-				return;
+		} try {
+			if(wr == null) return;
 			newImage[index] = new ImageView(wr);
 			item[index] = itemId;
 			if(firstPicture){
