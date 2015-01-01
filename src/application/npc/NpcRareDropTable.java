@@ -75,10 +75,12 @@ public class NpcRareDropTable {
 	 *            - The targeted npc id
 	 */
 	public static void process(int i) {
-		int newChance = Misc.random(400 / NpcList.getNpcIndexId(i));
+		if(NpcList.npcHealth[i] < 1)
+			return;
+		int newChance = Misc.random(400 / NpcList.npcHealth[NpcList.getNpcIndexId(i)]);
 		if (newChance == 0) {
 			for (int i2 = 0; i2 < npcs.length; i2++) {
-				if (NpcList.npcId[i] == npcs[i2]) {
+				if (NpcList.getNpcIndexId(i) == npcs[i2]) {
 					if (Misc.random(16) == 0) {
 						dropVeryRare();
 						return;

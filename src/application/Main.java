@@ -189,10 +189,9 @@ public class Main extends Application {
 			}
 		} catch (IOException e) {
 			e.printStackTrace();
+			
 		}
-		try {
-			if (wr == null)
-				return;
+		if(image != null) {
 			newImage[index] = new ImageView(wr);
 			item[index] = itemId;
 			if (firstPicture) {
@@ -216,8 +215,28 @@ public class Main extends Application {
 					+ ItemList.itemIds[itemId]);
 			Tooltip.install(newImage[index], t);
 			t.getStyleClass().add("tooltip");
-		} catch (Exception e) {
-			e.printStackTrace();
+		} else {
+			Label l = new Label();
+			item[index] = itemId;
+			if (firstPicture) {
+				l.setLayoutX(290);
+				l.setLayoutY(32);
+				firstPicture = false;
+			} else {
+				l.setLayoutX(lastPicPositionX + 64);
+				l.setLayoutY(lastPicPositionY);
+			}
+			if (pictureCount == 8) {
+				l.setLayoutX(290);
+				l.setLayoutY(lastPicPositionY + 64);
+				pictureCount = 0;
+			}
+			pictureCount++;
+			l.setText("-Error Img- \n" + ItemList.itemNames[itemId]);
+			l.setTextFill(Color.RED);
+			lastPicPositionX = (int) l.getLayoutX();
+			lastPicPositionY = (int) l.getLayoutY();
+			root.getChildren().add(l);
 		}
 	}
 

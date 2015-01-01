@@ -89,8 +89,8 @@ public class NpcList {
 	 */
 	public static int getNpcIndexId(int npc) {
 		for (int i = 0; i < 6800; i++) {
-			if (npcId[i] == npc) {
-				return i;
+			if (npc == npcId[i]) {
+				return npcId[i];
 			}
 		}
 		return -1;
