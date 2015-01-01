@@ -1,23 +1,27 @@
 package application.npc;
+
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileReader;
 import java.util.HashMap;
 import java.util.Scanner;
 import java.util.StringTokenizer;
 
 /**
  * This class will load all the Npc Drops
+ * 
  * @author Zack/Optimum
  *
  */
 public class NpcDrops {
-	
+
 	/**
 	 * Constructor for NpcDrops
 	 */
 	public NpcDrops() {
 		loadDrops();
 	}
-	
+
 	/**
 	 * All the Drop Types
 	 */
@@ -28,84 +32,85 @@ public class NpcDrops {
 	public static HashMap<Integer, int[][]> extremlyRareDrops = new HashMap<Integer, int[][]>();
 	public static HashMap<Integer, int[][]> otherDrops = new HashMap<Integer, int[][]>();
 	public static HashMap<Integer, int[]> constantDrops = new HashMap<Integer, int[]>();
-	
+
 	/**
-	 * All the Drop Rarities 
+	 * All the Drop Rarities
 	 */
-	public static HashMap<Integer, Integer> uncommonDropRarity = new HashMap<Integer,Integer>();
-	public static HashMap<Integer, Integer> rareDropRarity = new HashMap<Integer,Integer>();
-	public static HashMap<Integer, Integer> veryRareDropRarity = new HashMap<Integer,Integer>();
-	public static HashMap<Integer, Integer> extremlyRareDropRarity = new HashMap<Integer,Integer>();
-	public static HashMap<Integer, Integer> uniqueRareDropRarity = new HashMap<Integer,Integer>();
-	public static HashMap<Integer, Integer> otherDropRarity = new HashMap<Integer,Integer>();
-	
+	public static HashMap<Integer, Integer> uncommonDropRarity = new HashMap<Integer, Integer>();
+	public static HashMap<Integer, Integer> rareDropRarity = new HashMap<Integer, Integer>();
+	public static HashMap<Integer, Integer> veryRareDropRarity = new HashMap<Integer, Integer>();
+	public static HashMap<Integer, Integer> extremlyRareDropRarity = new HashMap<Integer, Integer>();
+	public static HashMap<Integer, Integer> uniqueRareDropRarity = new HashMap<Integer, Integer>();
+	public static HashMap<Integer, Integer> otherDropRarity = new HashMap<Integer, Integer>();
+
 	/**
 	 * Loads all the drops and handles the logics
 	 */
 	@SuppressWarnings("resource")
 	public void loadDrops() {
 		try {
-			int[][][] commonNpcDrops = new int [9999][][];
-			int[][][] uncommonNpcDrops = new int [9999][][];
-			int[][][] rareNpcDrops = new int [9999][][];
-			int[][][] veryRareNpcDrops = new int [9999][][];
-			int[][][] extremlyRareNpcDrops = new int [9999][][];
-			int[][][] otherNpcDrops = new int [9999][][];
-			
-			int[] uncommonRarity = new int [9999];
-			int[] rareRarity = new int [9999];
-			int[] veryRareRarity = new int [9999];
-			int[] extremlyRareRarity = new int [9999];
-			int[] otherRarity = new int [9999];
-			File f = new File("data/NPCDrops.TSM");
+			int[][][] commonNpcDrops = new int[9999][][];
+			int[][][] uncommonNpcDrops = new int[9999][][];
+			int[][][] rareNpcDrops = new int[9999][][];
+			int[][][] veryRareNpcDrops = new int[9999][][];
+			int[][][] extremlyRareNpcDrops = new int[9999][][];
+			int[][][] otherNpcDrops = new int[9999][][];
+
+			int[] uncommonRarity = new int[9999];
+			int[] rareRarity = new int[9999];
+			int[] veryRareRarity = new int[9999];
+			int[] extremlyRareRarity = new int[9999];
+			int[] otherRarity = new int[9999];
+			BufferedReader f = new BufferedReader(new FileReader("data/NPCDrops.TSM"));
 			Scanner s = new Scanner(f);
 			while (s.hasNextLine()) {
-				
+
 				String line = s.nextLine();
 				if (line.startsWith("#"))
 					continue;
 				StringTokenizer commonTok = new StringTokenizer(line, "\t");
-				
+
 				line = s.nextLine();
 				if (line.startsWith("#"))
 					continue;
 				StringTokenizer uncommonTok = new StringTokenizer(line, "\t");
-				
+
 				line = s.nextLine();
 				if (line.startsWith("#"))
 					continue;
 				StringTokenizer rareTok = new StringTokenizer(line, "\t");
-				
+
 				line = s.nextLine();
 				if (line.startsWith("#"))
 					continue;
 				StringTokenizer veryRareTok = new StringTokenizer(line, "\t");
-				
+
 				line = s.nextLine();
 				if (line.startsWith("#"))
 					continue;
-				StringTokenizer extremlyRareTok = new StringTokenizer(line, "\t");
-				
+				StringTokenizer extremlyRareTok = new StringTokenizer(line,
+						"\t");
+
 				line = s.nextLine();
 				if (line.startsWith("#"))
 					continue;
 				StringTokenizer otherTok = new StringTokenizer(line, "\t");
-				
+
 				/**
 				 * This splits up the positioning or rarity's
 				 */
 				String[] information = commonTok.nextToken().split("-");
 				int npcId = Integer.parseInt(information[0]);
-				
+
 				/**
 				 * Sets the postiion of :
 				 */
-				uncommonRarity[npcId] = Integer.parseInt(information[1])-1;
-				rareRarity[npcId] = Integer.parseInt(information[2])-1;
-				veryRareRarity[npcId] = Integer.parseInt(information[3])-1;
-				extremlyRareRarity[npcId] = Integer.parseInt(information[4])-1;
-				otherRarity[npcId] = Integer.parseInt(information[5])-1;
-				
+				uncommonRarity[npcId] = Integer.parseInt(information[1]) - 1;
+				rareRarity[npcId] = Integer.parseInt(information[2]) - 1;
+				veryRareRarity[npcId] = Integer.parseInt(information[3]) - 1;
+				extremlyRareRarity[npcId] = Integer.parseInt(information[4]) - 1;
+				otherRarity[npcId] = Integer.parseInt(information[5]) - 1;
+
 				/**
 				 * Counts the tokens: /tabs
 				 */
@@ -113,9 +118,10 @@ public class NpcDrops {
 				uncommonNpcDrops[npcId] = new int[uncommonTok.countTokens()][2];
 				rareNpcDrops[npcId] = new int[rareTok.countTokens()][2];
 				veryRareNpcDrops[npcId] = new int[veryRareTok.countTokens()][2];
-				extremlyRareNpcDrops[npcId] = new int[extremlyRareTok.countTokens()][2];
+				extremlyRareNpcDrops[npcId] = new int[extremlyRareTok
+						.countTokens()][2];
 				otherNpcDrops[npcId] = new int[otherTok.countTokens()][2];
-				
+
 				/**
 				 * Checks to see if there are more items
 				 */
@@ -129,8 +135,10 @@ public class NpcDrops {
 				count = 0;
 				while (uncommonTok.hasMoreTokens()) {
 					String[] temp = uncommonTok.nextToken().split(":");
-					uncommonNpcDrops[npcId][count][0] = Integer.parseInt(temp[0]);
-					uncommonNpcDrops[npcId][count][1] = Integer.parseInt(temp[1]);
+					uncommonNpcDrops[npcId][count][0] = Integer
+							.parseInt(temp[0]);
+					uncommonNpcDrops[npcId][count][1] = Integer
+							.parseInt(temp[1]);
 					count++;
 				}
 				count = 0;
@@ -143,15 +151,19 @@ public class NpcDrops {
 				count = 0;
 				while (veryRareTok.hasMoreTokens()) {
 					String[] temp = veryRareTok.nextToken().split(":");
-					veryRareNpcDrops[npcId][count][0] = Integer.parseInt(temp[0]);
-					veryRareNpcDrops[npcId][count][1] = Integer.parseInt(temp[1]);
+					veryRareNpcDrops[npcId][count][0] = Integer
+							.parseInt(temp[0]);
+					veryRareNpcDrops[npcId][count][1] = Integer
+							.parseInt(temp[1]);
 					count++;
 				}
 				count = 0;
 				while (extremlyRareTok.hasMoreTokens()) {
 					String[] temp = extremlyRareTok.nextToken().split(":");
-					extremlyRareNpcDrops[npcId][count][0] = Integer.parseInt(temp[0]);
-					extremlyRareNpcDrops[npcId][count][1] = Integer.parseInt(temp[1]);
+					extremlyRareNpcDrops[npcId][count][0] = Integer
+							.parseInt(temp[0]);
+					extremlyRareNpcDrops[npcId][count][1] = Integer
+							.parseInt(temp[1]);
 					count++;
 				}
 				count = 0;
@@ -184,14 +196,14 @@ public class NpcDrops {
 		}
 		loadConstants();
 	}
-	
+
 	/**
 	 * Loads the constant drop table
 	 */
 	@SuppressWarnings("resource")
 	public void loadConstants() {
 		try {
-			File f = new File("data/NpcConstants.TSM");
+			BufferedReader f = new BufferedReader(new FileReader("data/NpcConstants.TSM"));
 			Scanner s = new Scanner(f);
 			while (s.hasNextLine()) {
 				String line = s.nextLine();
@@ -205,12 +217,12 @@ public class NpcDrops {
 					temp[count] = Integer.parseInt(constantTok.nextToken());
 					count++;
 				}
-				constantDrops.put(npcId,temp);
+				constantDrops.put(npcId, temp);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-	
+
 	}
 
 }

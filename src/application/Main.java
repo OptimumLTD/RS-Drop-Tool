@@ -1,24 +1,23 @@
 package application;
-	
+
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.net.URL;
 import java.text.NumberFormat;
 import java.util.Locale;
 
-import javax.imageio.ImageIO;
-
-import application.npc.NpcDrops;
-import application.npc.SimulateDrops;
-import application.util.ItemList;
-import application.util.NpcList;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Group;
 import javafx.scene.Scene;
-import javafx.scene.control.*;
-import javafx.scene.effect.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.Slider;
+import javafx.scene.control.TextArea;
+import javafx.scene.control.Tooltip;
+import javafx.scene.effect.DropShadow;
+import javafx.scene.effect.InnerShadow;
 import javafx.scene.image.ImageView;
 import javafx.scene.image.PixelWriter;
 import javafx.scene.image.WritableImage;
@@ -28,18 +27,26 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
+import javax.imageio.ImageIO;
+
+import application.npc.NpcDrops;
+import application.npc.SimulateDrops;
+import application.util.ItemList;
+import application.util.NpcList;
+
 /**
  * Main Class
+ * 
  * @author Zack/Optimum
  *
  */
 public class Main extends Application {
-	
+
 	static Group root = new Group();
 	static AnchorPane dropTable = new AnchorPane();
 	static Button btnGetNpcList = new Button();
 	static Button btnSimulate = new Button();
-	static Label[] lblItemAmount= new Label[999];
+	static Label[] lblItemAmount = new Label[999];
 	static ImageView[] newImage = new ImageView[999];
 	static int[] item = new int[999];
 	static Label lblSimulateId = new Label();
@@ -56,7 +63,6 @@ public class Main extends Application {
 	@SuppressWarnings("unused")
 	private final static int WIDTH = 800;
 
-	
 	/**
 	 * Variables for loots
 	 */
@@ -68,14 +74,13 @@ public class Main extends Application {
 	static int lastPicPositionY = 32;
 	static int pictureCount;
 	static boolean firstPicture = true;
-	
-	
-	
+
 	@Override
 	public void start(Stage primaryStage) {
 		try {
-			Scene scene = new Scene(root,800,535);
-			scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
+			Scene scene = new Scene(root, 800, 535);
+			scene.getStylesheets().add(
+					getClass().getResource("application.css").toExternalForm());
 			primaryStage.setScene(scene);
 			primaryStage.setTitle("Runescape Drop Simulator");
 			primaryStage.setResizable(false);
@@ -91,18 +96,20 @@ public class Main extends Application {
 			addChildren();
 			primaryStage.setScene(scene);
 			primaryStage.show();
-		} catch(Exception e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
-	
+
 	/**
 	 * Styles the label for the item count
 	 * 
-	 * @param index - The labels index id
-	 * @param itemAmount - The items amount
+	 * @param index
+	 *            - The labels index id
+	 * @param itemAmount
+	 *            - The items amount
 	 */
-	public static void styleLabel(int index, int itemAmount){
+	public static void styleLabel(int index, int itemAmount) {
 		DropShadow dropShadow = new DropShadow();
 		dropShadow.setRadius(0);
 		dropShadow.setOffsetX(2);
@@ -113,22 +120,30 @@ public class Main extends Application {
 		lblItemAmount[index].setTextFill(setColor(index));
 		lblItemAmount[index].getStyleClass().add("lblItemAmount");
 		NumberFormat nf = NumberFormat.getInstance(Locale.ENGLISH);
-		lblItemAmount[index].setTooltip(new Tooltip(nf.format(itemAmount) + ""));
+		lblItemAmount[index]
+				.setTooltip(new Tooltip(nf.format(itemAmount) + ""));
 	}
-	
+
 	/**
 	 * Generates a new loot and displays the image and label
 	 * 
-	 * @param index - The loot's id
-	 * @param itemId - The item id
-	 * @param amount - The amount of item
+	 * @param index
+	 *            - The loot's id
+	 * @param itemId
+	 *            - The item id
+	 * @param amount
+	 *            - The amount of item
 	 */
-	public static void newLoot(int index, int itemId, int amount){
-		if(lootCount == 63)
+	public static void newLoot(int index, int itemId, int amount) {
+		if (lootCount == 63)
 			return;
-		for(int i = 0; i < item.length; i++){
-			if(itemId == item[i]){
-				styleLabel(i, Integer.parseInt(lblItemAmount[i].getTooltip().getText().replaceAll(",", "")) + amount);
+		for (int i = 0; i < item.length; i++) {
+			if (itemId == item[i]) {
+				styleLabel(
+						i,
+						Integer.parseInt(lblItemAmount[i].getTooltip()
+								.getText().replaceAll(",", ""))
+								+ amount);
 				return;
 			}
 		}
@@ -137,44 +152,50 @@ public class Main extends Application {
 		styleLabel(index, amount);
 		lootCount++;
 	}
-	
+
 	/**
 	 * Styles the slider
 	 */
-	public static void styleSlider(){
+	public static void styleSlider() {
 		sldSpeed.setLayoutX(23);
 		sldSpeed.setLayoutY(300);
 		sldSpeed.setPrefWidth(200);
 		sldSpeed.getStyleClass().add("slider");
 	}
-	
+
 	/**
 	 * Adds a picture to the drop table
 	 * 
-	 * @param index - The items index id
-	 * @param itemId - The item id.
+	 * @param index
+	 *            - The items index id
+	 * @param itemId
+	 *            - The item id.
 	 */
-	public static void addPicture(int index, int itemId){
+	public static void addPicture(int index, int itemId) {
 		BufferedImage image = null;
 		WritableImage wr = null;
 		try {
 			System.out.println("newImage: " + itemId);
-			URL url = new URL("http://dropsimulator.comuv.com/Sprite%20Cache/images/" + itemId + ".png");
+			URL url = new URL(
+					"http://dropsimulator.comuv.com/Sprite%20Cache/images/"
+							+ itemId + ".png");
 			image = ImageIO.read(url);
 			wr = new WritableImage(image.getWidth(), image.getHeight());
 			PixelWriter pw = wr.getPixelWriter();
-            for (int x = 0; x <image.getWidth(); x++) {
-                for (int y = 0; y < image.getHeight(); y++) {
-                    pw.setArgb(x, y, image.getRGB(x, y));
-                }
-            }
+			for (int x = 0; x < image.getWidth(); x++) {
+				for (int y = 0; y < image.getHeight(); y++) {
+					pw.setArgb(x, y, image.getRGB(x, y));
+				}
+			}
 		} catch (IOException e) {
 			e.printStackTrace();
-		} try {
-			if(wr == null) return;
+		}
+		try {
+			if (wr == null)
+				return;
 			newImage[index] = new ImageView(wr);
 			item[index] = itemId;
-			if(firstPicture){
+			if (firstPicture) {
 				newImage[index].setLayoutX(290);
 				newImage[index].setLayoutY(32);
 				firstPicture = false;
@@ -182,7 +203,7 @@ public class Main extends Application {
 				newImage[index].setLayoutX(lastPicPositionX + 64);
 				newImage[index].setLayoutY(lastPicPositionY);
 			}
-			if(pictureCount == 8){
+			if (pictureCount == 8) {
 				newImage[index].setLayoutX(290);
 				newImage[index].setLayoutY(lastPicPositionY + 64);
 				pictureCount = 0;
@@ -191,35 +212,37 @@ public class Main extends Application {
 			lastPicPositionX = (int) newImage[index].getLayoutX();
 			lastPicPositionY = (int) newImage[index].getLayoutY();
 			root.getChildren().add(newImage[index]);
-	        Tooltip t = new Tooltip(itemList.getItemName(itemId) + " : " + ItemList.itemIds[itemId]);
-	        Tooltip.install(newImage[index], t);
-	        t.getStyleClass().add("tooltip");
-		} catch(Exception e){
+			Tooltip t = new Tooltip(itemList.getItemName(itemId) + " : "
+					+ ItemList.itemIds[itemId]);
+			Tooltip.install(newImage[index], t);
+			t.getStyleClass().add("tooltip");
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
-	
+
 	/**
 	 * Add's a label to the drop table
 	 * 
-	 * @param index - The label's index id
+	 * @param index
+	 *            - The label's index id
 	 */
-	public static void addLabel(int index){
+	public static void addLabel(int index) {
 		lblItemAmount[index] = new Label();
 		root.getChildren().add(lblItemAmount[index]);
-		Font n = Font.loadFont(Main.class.getResourceAsStream("runescape_uf.ttf"), 16);
+		Font n = Font.loadFont(
+				Main.class.getResourceAsStream("runescape_uf.ttf"), 16);
 		lblItemAmount[index].setFont(n);
 		lblItemAmount[index].setStyle("-fx-font-weight: 100;");
 		lblItemAmount[index].setPrefHeight(20);
 		lblItemAmount[index].setPrefWidth(40);
-		if(firstLabel){
+		if (firstLabel) {
 			lblItemAmount[index].setLayoutX(290);
 			firstLabel = false;
-		}
-		else 
+		} else
 			lblItemAmount[index].setLayoutX(lastLabelPositionX + 64);
-		
-		if(labelCount == 8) {
+
+		if (labelCount == 8) {
 			lblItemAmount[index].setLayoutY(lastLabelPositionY + 64);
 			lblItemAmount[index].setLayoutX(290);
 			labelCount = 0;
@@ -230,32 +253,33 @@ public class Main extends Application {
 		lastLabelPositionX = (int) lblItemAmount[index].getLayoutX();
 		lastLabelPositionY = (int) lblItemAmount[index].getLayoutY();
 	}
-	
-	
+
 	/**
 	 * Sets the colour for a specific label index
 	 * 
-	 * @param index - The targeted label index
+	 * @param index
+	 *            - The targeted label index
 	 * @return The new colour
 	 */
-	public static Color setColor(int index){
+	public static Color setColor(int index) {
 		int newValue = 0;
-		if(lblItemAmount[index].getText().contains("M"))
+		if (lblItemAmount[index].getText().contains("M"))
 			newValue = 2;
-		if(lblItemAmount[index].getText().contains("K"))
+		if (lblItemAmount[index].getText().contains("K"))
 			newValue = 1;
-		if(newValue == 1){
+		if (newValue == 1) {
 			return Color.WHITE;
-		} else if(newValue == 2) {
+		} else if (newValue == 2) {
 			return Color.LIME;
 		}
 		return Color.YELLOW;
 	}
-	
+
 	/**
 	 * Formats {@link j} to have an "K", "M" if required
 	 * 
-	 * @param j - The item amount
+	 * @param j
+	 *            - The item amount
 	 * @return the new format
 	 */
 	public final static String formatAmount(int j) {
@@ -270,11 +294,11 @@ public class Main extends Application {
 		else
 			return "???";
 	}
-	
+
 	/**
 	 * Adds all the children to the root
 	 */
-	public static void addChildren(){
+	public static void addChildren() {
 		root.getChildren().add(btnGetNpcList);
 		root.getChildren().add(dropTable);
 		root.getChildren().add(btnSimulate);
@@ -285,17 +309,18 @@ public class Main extends Application {
 		root.getChildren().add(sldSpeed);
 		root.getChildren().add(clearBank);
 	}
-	
+
 	/**
 	 * Styles and places the clear bank button
 	 */
-	public static void styleBankButton(){
+	public static void styleBankButton() {
 		DropShadow dropShadow = new DropShadow();
 		dropShadow.setRadius(0);
 		dropShadow.setOffsetX(2);
 		dropShadow.setOffsetY(2);
 		dropShadow.setColor(Color.BLACK);
-		Font n = Font.loadFont(Main.class.getResourceAsStream("runescape_uf.ttf"), 25);
+		Font n = Font.loadFont(
+				Main.class.getResourceAsStream("runescape_uf.ttf"), 25);
 		clearBank.getStyleClass().add("clearBank");
 		clearBank.setFont(n);
 		clearBank.setEffect(dropShadow);
@@ -315,7 +340,7 @@ public class Main extends Application {
 				pictureCount = 0;
 				lootCount = 0;
 				firstPicture = true;
-				for(int i = 0; i < 999; i++){
+				for (int i = 0; i < 999; i++) {
 					root.getChildren().remove(newImage[i]);
 					newImage[i] = null;
 					root.getChildren().remove(lblItemAmount[i]);
@@ -325,11 +350,11 @@ public class Main extends Application {
 			}
 		});
 	}
-	
+
 	/**
 	 * Styles the simulate drops button
 	 */
-	public static void styleButtonSimulate(){
+	public static void styleButtonSimulate() {
 		btnSimulate.setPrefHeight(40);
 		btnSimulate.setPrefWidth(200);
 		btnSimulate.setLayoutX(23);
@@ -337,18 +362,20 @@ public class Main extends Application {
 		btnSimulate.setText("Simulate Drops");
 		btnSimulate.getStyleClass().add("button");
 		btnSimulate.setOnAction(new EventHandler<ActionEvent>() {
-		    @Override public void handle(ActionEvent e) {
-				for(int i = 0; i < Integer.parseInt(txtAmountToKill.getText()); i++){
-					SimulateDrops.SimulateDrop(Integer.parseInt(txtNpcId.getText()), 1);
+			@Override
+			public void handle(ActionEvent e) {
+				for (int i = 0; i < Integer.parseInt(txtAmountToKill.getText()); i++) {
+					SimulateDrops.SimulateDrop(
+							Integer.parseInt(txtNpcId.getText()), 1);
 				}
-		    }
+			}
 		});
 	}
-	
+
 	/**
 	 * Styles the input box for the npc id
 	 */
-	public static void styleTxtNpcId(){
+	public static void styleTxtNpcId() {
 		txtNpcId.setPrefHeight(40);
 		txtNpcId.setPrefWidth(200);
 		txtNpcId.setLayoutX(23);
@@ -356,23 +383,23 @@ public class Main extends Application {
 		txtNpcId.setText("0");
 		txtNpcId.getStyleClass().add("txtBoxes");
 	}
-	
+
 	/**
 	 * Styles the amount of kills input box
 	 */
-	public static void styeTxtAmount(){
+	public static void styeTxtAmount() {
 		txtAmountToKill.setPrefHeight(40);
 		txtAmountToKill.setPrefWidth(200);
 		txtAmountToKill.setLayoutX(23);
 		txtAmountToKill.setLayoutY(190);
-		txtAmountToKill.getStyleClass().add("txtBoxes");	
+		txtAmountToKill.getStyleClass().add("txtBoxes");
 		txtAmountToKill.setText("0");
 	}
-	
+
 	/**
 	 * Styles the drop table
 	 */
-	public static void styleDropTable(){
+	public static void styleDropTable() {
 		InnerShadow innerShadow = new InnerShadow();
 		innerShadow.setOffsetX(4);
 		innerShadow.setOffsetY(4);
@@ -382,11 +409,11 @@ public class Main extends Application {
 		dropTable.setLayoutX(250);
 		dropTable.setEffect(innerShadow);
 	}
-	
+
 	/**
 	 * Styles the npc id label
 	 */
-	public static void styleLabelNpcToSim(){
+	public static void styleLabelNpcToSim() {
 		lblSimulateId.setPrefHeight(40);
 		lblSimulateId.setPrefWidth(200);
 		lblSimulateId.setLayoutX(23);
@@ -394,11 +421,11 @@ public class Main extends Application {
 		lblSimulateId.setText("Npc id to simulate");
 		lblSimulateId.getStyleClass().add("lblSimulateId");
 	}
-	
+
 	/**
 	 * Styles the amount to kill label
 	 */
-	public static void styleLabelAmount(){
+	public static void styleLabelAmount() {
 		lblAmount.setPrefHeight(40);
 		lblAmount.setPrefWidth(200);
 		lblAmount.setLayoutX(23);
@@ -406,12 +433,11 @@ public class Main extends Application {
 		lblAmount.setText("Amount to kill");
 		lblAmount.getStyleClass().add("lblSimulateId");
 	}
-	
+
 	/**
-	 * Styles the get Npc list id.
-	 * Method will soon be redundant
+	 * Styles the get Npc list id. Method will soon be redundant
 	 */
-	public static void styleBtnGetNpcList(){
+	public static void styleBtnGetNpcList() {
 		btnGetNpcList.setPrefHeight(40);
 		btnGetNpcList.setPrefWidth(200);
 		btnGetNpcList.setLayoutX(23);
@@ -419,7 +445,7 @@ public class Main extends Application {
 		btnGetNpcList.setText("Get Npc List");
 		btnGetNpcList.getStyleClass().add("button");
 	}
-	
+
 	/**
 	 * Main Method
 	 * 

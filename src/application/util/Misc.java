@@ -5,15 +5,17 @@ import java.util.Locale;
 
 /**
  * This class is full of methods that can be used
+ * 
  * @author Zack/Optimum
  *
  */
 public class Misc {
-	
+
 	/**
 	 * Generates a random number
 	 * 
-	 * @param range - the max random number value
+	 * @param range
+	 *            - the max random number value
 	 * @return random number
 	 */
 	public static int random(int range) {
@@ -23,10 +25,11 @@ public class Misc {
 	/**
 	 * Adds a comma format to {@link number}
 	 * 
-	 * @param number - The number being given a format
+	 * @param number
+	 *            - The number being given a format
 	 * @return The new number format
 	 */
-	public static String commaNumber(int number){
+	public static String commaNumber(int number) {
 		NumberFormat nf;
 		Locale cl = Locale.ENGLISH;
 		nf = NumberFormat.getNumberInstance(cl);
