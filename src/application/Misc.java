@@ -2,7 +2,6 @@ package application;
 
 import java.text.NumberFormat;
 import java.util.Locale;
-import java.util.Random;
 
 /**
  * This class is full of methods that can be used
@@ -18,7 +17,7 @@ public class Misc {
 	 * @return random number
 	 */
 	public static int random(int range) {
-		return new Random().nextInt(range);
+		return (int) (java.lang.Math.random() * (range + 1));
 	}
 
 	/**

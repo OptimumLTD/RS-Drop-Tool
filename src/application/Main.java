@@ -160,7 +160,7 @@ public class Main extends Application {
 		WritableImage wr = null;
 		try {
 			System.out.println("newImage: " + itemId);
-			URL url = new URL("http://dropsimulator.comuv.com/Sprite%20Cache/images/" + newSpriteId);
+			URL url = new URL("http://dropsimulator.comuv.com/Sprite%20Cache/images/" + newSpriteId + ".png");
 			image = ImageIO.read(url);
 			wr = new WritableImage(image.getWidth(), image.getHeight());
 			PixelWriter pw = wr.getPixelWriter();
