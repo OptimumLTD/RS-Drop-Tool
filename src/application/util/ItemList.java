@@ -1,4 +1,4 @@
-package application;
+package application.util;
 
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
@@ -39,7 +39,7 @@ public class ItemList {
 		int counter = 0;
 		boolean endOfFile = false;
 		try {
-			file = new BufferedReader(new FileReader("./data/itemlist.txt"));
+			file = new BufferedReader(new FileReader("data/itemlist.txt"));
 		} catch (FileNotFoundException fileex) {
 			fileex.printStackTrace();
 		}

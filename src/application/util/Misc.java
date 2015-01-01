@@ -1,4 +1,4 @@
-package application;
+package application.util;
 
 import java.text.NumberFormat;
 import java.util.Locale;

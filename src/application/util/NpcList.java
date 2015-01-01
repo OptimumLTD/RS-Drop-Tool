@@ -1,4 +1,4 @@
-package application;
+package application.util;
 
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
@@ -44,7 +44,7 @@ public class NpcList {
 		int counter = 0;
 		boolean endOfFile = false;
 		try {
-			file = new BufferedReader(new FileReader("./data/npclist.txt"));
+			file = new BufferedReader(new FileReader("data/npclist.txt"));
 		} catch (FileNotFoundException fileex) {
 			fileex.printStackTrace();
 		}

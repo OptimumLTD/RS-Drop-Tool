@@ -1,4 +1,7 @@
-package application;
+package application.npc;
+
+import application.Main;
+import application.util.Misc;
 
 /**
  * This class will handle the simulation of a drop

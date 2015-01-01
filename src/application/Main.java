@@ -8,6 +8,10 @@ import java.util.Locale;
 
 import javax.imageio.ImageIO;
 
+import application.npc.NpcDrops;
+import application.npc.SimulateDrops;
+import application.util.ItemList;
+import application.util.NpcList;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -46,7 +50,7 @@ public class Main extends Application {
 	static NpcDrops npc = new NpcDrops();
 	static ItemList itemList = new ItemList();
 	static NpcList npcList = new NpcList();
-	static int lootCount = 0;
+	public static int lootCount = 0;
 	static Slider sldSpeed = new Slider();
 	private final static int HEIGHT = 500;
 	@SuppressWarnings("unused")

@@ -1,4 +1,8 @@
-package application;
+package application.npc;
+
+import application.Main;
+import application.util.Misc;
+import application.util.NpcList;
 
 /**
  * The Rare drop table, this class basically is a new drop table

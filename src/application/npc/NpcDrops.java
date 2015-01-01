@@ -1,4 +1,4 @@
-package application;
+package application.npc;
 import java.io.File;
 import java.util.HashMap;
 import java.util.Scanner;
@@ -57,7 +57,7 @@ public class NpcDrops {
 			int[] veryRareRarity = new int [9999];
 			int[] extremlyRareRarity = new int [9999];
 			int[] otherRarity = new int [9999];
-			File f = new File("./data/NPCDrops.TSM");
+			File f = new File("data/NPCDrops.TSM");
 			Scanner s = new Scanner(f);
 			while (s.hasNextLine()) {
 				
@@ -191,7 +191,7 @@ public class NpcDrops {
 	@SuppressWarnings("resource")
 	public void loadConstants() {
 		try {
-			File f = new File("./data/NpcConstants.TSM");
+			File f = new File("data/NpcConstants.TSM");
 			Scanner s = new Scanner(f);
 			while (s.hasNextLine()) {
 				String line = s.nextLine();
