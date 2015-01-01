@@ -1,0 +1,60 @@
+AnchorPane {
+	-fx-background-image: url("rsbg.png");
+}
+.button {
+	-fx-background-color: "#181D22";
+	-fx-text-fill: "#E6E8ED";
+	-fx-text-alignment: center;
+} 
+.button:hover {
+	-fx-background-color: "#2E3136";
+	-fx-text-fill: "#E6E8ED";
+	-fx-text-alignment: center;
+	-fx-cursor: hand;
+}
+.lblSimulateId {
+	-fx-text-fill: "#2D3037";
+	-fx-font-size: 17;
+	-fx-alignment: center;
+}
+.txtBoxes {
+	-fx-text-fill: "#FFF";
+	-fx-font-size: 17;
+}
+.txtBoxes *.text{
+	-fx-text-alignment: center;
+}
+.txtBoxes .content {
+	-fx-background-color: "#2D3037";
+}
+.txtBoxes:active {
+	-fx-highlight-fill: "#00ff00";
+  	-fx-highlight-text-fill: "#000000";
+}
+.tooltip {
+	-fx-background-color: "#181D2277";
+	-fx-font-size: 15;
+}
+.slider .thumb {
+	-fx-pref-width: 18;
+	-fx-pref-height: 18;
+	-fx-background-color: "#F5F5F5";
+	-fx-border-width: 1;
+	-fx-border-radius: 4;
+	-fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.3), 5, 0, 2, 2);
+	-fx-cursor: hand;
+}
+
+.slider .track {
+	-fx-effect: innershadow(three-pass-box, rgba(0,0,0,0.3), 5, 0.3, 1, 1);
+	-fx-pref-height: 4;
+	-fx-background-color: #DD4713;
+	-fx-cursor: hand;
+}
+.clearBank{
+	-fx-text-fill: #fff;
+}
+.clearBank:hover {
+	-fx-text-fill: #eee;
+	-fx-cursor: hand;
+}
