@@ -174,6 +174,7 @@ public class Main extends Application {
 	public static void addPicture(int index, int itemId) {
 		BufferedImage image = null;
 		WritableImage wr = null;
+		PixelWriter pw = null;
 		try {
 			System.out.println("newImage: " + itemId);
 			URL url = new URL(
@@ -181,7 +182,7 @@ public class Main extends Application {
 							+ itemId + ".png");
 			image = ImageIO.read(url);
 			wr = new WritableImage(image.getWidth(), image.getHeight());
-			PixelWriter pw = wr.getPixelWriter();
+			pw = wr.getPixelWriter();
 			for (int x = 0; x < image.getWidth(); x++) {
 				for (int y = 0; y < image.getHeight(); y++) {
 					pw.setArgb(x, y, image.getRGB(x, y));

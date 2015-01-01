@@ -7,3 +7,5 @@ This is a tool to simulate old school runescape drops. Please keep in mind i am 
 wiki page so i cannot guarantee this tool is 100% accurate. But i will tell you this is fairly accurate (Some monsters)
 
 This is in alpha stage.
+
+Download here: https://dl.dropboxusercontent.com/s/k0ifxtiam9oq94w/Runescape%20Drop%20Simulator.zip?dl=0
