@@ -16,12 +16,12 @@ public class ItemList {
 	/**
 	 * A list of all the item names
 	 */
-	public static String[] itemNames = new String[12500];
+	public static String[] itemNames = new String[18000];
 
 	/**
 	 * A list of all the item id's
 	 */
-	public static int[] itemIds = new int[12500];
+	public static int[] itemIds = new int[18000];
 
 	/**
 	 * Constructor for ItemList
@@ -69,7 +69,7 @@ public class ItemList {
 	 *            - The id of the time
 	 * @return
 	 */
-	public String getItemName(int id) {
+	public static String getItemName(int id) {
 		return itemNames[id];
 	}
 

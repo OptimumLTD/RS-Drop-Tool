@@ -152,6 +152,7 @@ public class Main extends Application {
 		lblItemAmount[index].setTextFill(setColor(index));
 		lblItemAmount[index].getStyleClass().add("lblItemAmount");
 		NumberFormat nf = NumberFormat.getInstance(Locale.ENGLISH);
+		
 		lblItemAmount[index]
 				.setTooltip(new Tooltip(nf.format(itemAmount) + ""));
 	}
@@ -164,12 +165,16 @@ public class Main extends Application {
 	 * @param amount - The amount of item
 	 */
 	public static void newLoot(int index, int itemId, int amount) {
+		if(lootCount == 64){
+			return;
+		}
 		for (int i = 0; i < item.length; i++) {
 			if (itemId == item[i]) {
 				styleLabel(i, Integer.parseInt(lblItemAmount[i].getTooltip() .getText().replaceAll(",", "")) + amount);
 				return;
 			}
 		}
+
 		addPicture(index, itemId);
 		addLabel(index);
 		styleLabel(index, amount);
@@ -198,8 +203,8 @@ public class Main extends Application {
 		BufferedImage image = null;
 		WritableImage wr = null;
 		PixelWriter pw = null;
+		System.out.println("newItem = " + itemId);
 		try {
-			System.out.println("newImage: " + itemId);
 			URL url = new URL(
 					"http://dropsimulator.comuv.com/Sprite%20Cache/images/"
 							+ itemId + ".png");
@@ -235,8 +240,8 @@ public class Main extends Application {
 			lastPicPositionX = (int) newImage[index].getLayoutX();
 			lastPicPositionY = (int) newImage[index].getLayoutY();
 			root.getChildren().add(newImage[index]);
-			System.out.println(newImage[index].getParent());
-			Tooltip t = new Tooltip(itemList.getItemName(itemId) + " : "
+			Tooltip t = 
+					new Tooltip(ItemList.getItemName(itemId) + " : "
 					+ ItemList.itemIds[itemId]);
 			Tooltip.install(newImage[index], t);
 			t.getStyleClass().add("tooltip");
@@ -403,18 +408,19 @@ public class Main extends Application {
 	 * Styles the simulate drops button
 	 */
 	public static void styleButtonSimulate() {
+		Font n = Font.loadFont(Main.class.getResourceAsStream("runescape_uf.ttf"), 18);
+		btnSimulate.setTextFill(Color.YELLOW);
 		btnSimulate.setPrefHeight(40);
 		btnSimulate.setPrefWidth(200);
 		btnSimulate.setLayoutX(15);
+		btnSimulate.setFont(n);
 		btnSimulate.setLayoutY(245);
-		btnSimulate.setText("Simulate Drops");
+		btnSimulate.setText("Start Simulation");
 		btnSimulate.getStyleClass().add("button");
 		btnSimulate.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent e) {
-				for (int i = 0; i < Integer.parseInt(txtAmountToKill.getText()); i++) {
-					SimulateDrops.SimulateDrop(Integer.parseInt(txtNpcId.getText()), 1);
-				}
+				SimulateDrops.SimulateDrop(Integer.parseInt(txtNpcId.getText()), Integer.parseInt(txtAmountToKill.getText()));
 			}
 		});
 	}
@@ -499,10 +505,13 @@ public class Main extends Application {
 	 * Styles the get Npc list id. Method will soon be redundant
 	 */
 	public static void styleBtnGetNpcList() {
+		Font n = Font.loadFont(Main.class.getResourceAsStream("runescape_uf.ttf"), 18);
 		btnGetNpcList.setPrefHeight(40);
 		btnGetNpcList.setPrefWidth(200);
 		btnGetNpcList.setLayoutX(15);
 		btnGetNpcList.setLayoutY(100);
+		btnGetNpcList.setFont(n);
+		btnGetNpcList.setTextFill(Color.YELLOW);
 		btnGetNpcList.setText("Get Npc List");
 		btnGetNpcList.getStyleClass().add("button");
 	}

@@ -8,15 +8,30 @@ AnchorPane {
 	-fx-background-image: url("tabmain.png");
 }
 .button {
-	-fx-background-color: "#181D22";
-	-fx-text-fill: "#E6E8ED";
+	-fx-background-image: url("buttontexture.png");
+	-fx-background-repeat: stretch;
+	-fx-background-size: 100%, 100%;
+ 	-fx-focus-color: transparent;
+	-fx-border-width: 0;
 	-fx-text-alignment: center;
-} 
+	-fx-background-insets: 0, 0, 1, 2;
+	-fx-background-radius: 30;
+	-fx-background-radius: 15 0 15 0, 0 15 0 15;
+	-fx-border-radius: 15 0 15 0, 0 15 0 15;
+	}
+	
+.button:focused{
+     -fx-focus-color: transparent;
+     -fx-background-insets: 0, 0, 1, 2;
+}
+
 .button:hover {
 	-fx-background-color: "#2E3136";
-	-fx-text-fill: "#E6E8ED";
+	-fx-text-fill: "#FF0000";
 	-fx-text-alignment: center;
 	-fx-cursor: hand;
+	-fx-border-width: 0;
+	-fx-focus-color: transparent;
 }
 .lblSimulateId {
 	-fx-text-fill: "#FFF";
@@ -38,8 +53,13 @@ AnchorPane {
   	-fx-highlight-text-fill: "#000000";
 }
 .tooltip {
-	-fx-background-color: "#181D2277";
-	-fx-font-size: 15;
+	-fx-background-color: "#443B2E";
+	-fx-text-fill: "#FF781F";
+	-fx-font-weight: 900;
+	-fx-font-size: 13;
+	-fx-border-width: 1px;
+	-fx-border-color: black;
+	-fx-stroke-borders: 2px;
 }
 .slider .thumb {
 	-fx-pref-width: 18;
