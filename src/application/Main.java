@@ -90,7 +90,6 @@ public class Main extends Application {
 			primaryStage.setScene(scene);
 			primaryStage.setTitle("Runescape Drop Simulator");
 			primaryStage.setResizable(false);
-			
 			styleTabArea();
 			styleBtnGetNpcList();
 			styleLabelNpcToSim();
@@ -104,7 +103,6 @@ public class Main extends Application {
 			setScrollPane();
 			styleSidePanel();
 			addChildren();
-			
 			primaryStage.setScene(scene);
 			primaryStage.show();
 		} catch (Exception e) {
