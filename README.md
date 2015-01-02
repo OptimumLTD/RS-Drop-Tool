@@ -8,4 +8,10 @@ wiki page so i cannot guarantee this tool is 100% accurate. But i will tell you 
 
 This is in alpha stage.
 
-Download here: https://dl.dropboxusercontent.com/s/k0ifxtiam9oq94w/Runescape%20Drop%20Simulator.zip?dl=0
+Download
+============
+ https://dl.dropboxusercontent.com/s/k0ifxtiam9oq94w/Runescape%20Drop%20Simulator.zip?dl=0
+
+Donate
+============
+Email : zackdavidson2014@outlook.com

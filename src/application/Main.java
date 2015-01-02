@@ -103,6 +103,8 @@ public class Main extends Application {
 			setScrollPane();
 			styleSidePanel();
 			addChildren();
+			
+			newLoot(1, 1029, 1);
 			primaryStage.setScene(scene);
 			primaryStage.show();
 		} catch (Exception e) {
@@ -207,18 +209,21 @@ public class Main extends Application {
 					"http://dropsimulator.comuv.com/Sprite%20Cache/images/"
 							+ itemId + ".png");
 			image = ImageIO.read(url);
-			wr = new WritableImage(image.getWidth(), image.getHeight());
-			pw = wr.getPixelWriter();
-			for (int x = 0; x < image.getWidth(); x++) {
-				for (int y = 0; y < image.getHeight(); y++) {
-					pw.setArgb(x, y, image.getRGB(x, y));
+			try{
+				wr = new WritableImage(image.getWidth(), image.getHeight());
+				pw = wr.getPixelWriter();
+				for (int x = 0; x < image.getWidth(); x++) {
+					for (int y = 0; y < image.getHeight(); y++) {
+						pw.setArgb(x, y, image.getRGB(x, y));
+					}
 				}
+			} catch(Exception e){
+				
 			}
 		} catch (IOException e) {
 			e.printStackTrace();
-			
 		}
-		if(image != null) {
+		if(wr != null) {
 			newImage[index] = new ImageView(wr);
 			item[index] = itemId;
 			if (firstPicture) {
