@@ -257,7 +257,7 @@ public class Main extends Application {
 				pictureCount = 0;
 			}
 			pictureCount++;
-			l.setText("-Error Img- \n" + ItemList.itemNames[itemId]);
+			l.setText("-Error Img- \n" + ItemList.itemNames[itemId] + "\n" + itemId);
 			l.setTextFill(Color.RED);
 			lastPicPositionX = (int) l.getLayoutX();
 			lastPicPositionY = (int) l.getLayoutY();
@@ -413,7 +413,7 @@ public class Main extends Application {
 			@Override
 			public void handle(ActionEvent e) {
 				for (int i = 0; i < Integer.parseInt(txtAmountToKill.getText()); i++) {
-					SimulateDrops.SimulateDrop(NpcList.getNpcIdByName(txtNpcId.getText()), 1);
+					SimulateDrops.SimulateDrop(Integer.parseInt(txtNpcId.getText()), 1);
 				}
 			}
 		});
