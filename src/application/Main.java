@@ -13,6 +13,8 @@ import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.ScrollPane;
+import javafx.scene.control.ScrollPane.ScrollBarPolicy;
 import javafx.scene.control.Slider;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.Tooltip;
@@ -48,6 +50,8 @@ public class Main extends Application {
 	static Button btnSimulate = new Button();
 	static Label[] lblItemAmount = new Label[999];
 	static ImageView[] newImage = new ImageView[999];
+	static AnchorPane sidePanel = new AnchorPane();
+	static AnchorPane tabArea = new AnchorPane();
 	static int[] item = new int[999];
 	static Label lblSimulateId = new Label();
 	static Label lblAmount = new Label();
@@ -57,6 +61,7 @@ public class Main extends Application {
 	static NpcDrops npc = new NpcDrops();
 	static ItemList itemList = new ItemList();
 	static NpcList npcList = new NpcList();
+	static ScrollPane scrollPane = new ScrollPane();
 	public static int lootCount = 0;
 	static Slider sldSpeed = new Slider();
 	private final static int HEIGHT = 500;
@@ -71,8 +76,9 @@ public class Main extends Application {
 	static boolean firstLabel = true;
 	static int lastLabelPositionY = 10;
 	static int lastPicPositionX = 0;
-	static int lastPicPositionY = 32;
+	static int lastPicPositionY = 0;
 	static int pictureCount;
+	static int rowCount;
 	static boolean firstPicture = true;
 
 	@Override
@@ -84,7 +90,8 @@ public class Main extends Application {
 			primaryStage.setScene(scene);
 			primaryStage.setTitle("Runescape Drop Simulator");
 			primaryStage.setResizable(false);
-			styleDropTable();
+			
+			styleTabArea();
 			styleBtnGetNpcList();
 			styleLabelNpcToSim();
 			styleTxtNpcId();
@@ -92,13 +99,38 @@ public class Main extends Application {
 			styeTxtAmount();
 			styleButtonSimulate();
 			styleSlider();
+			styleDropTable();
 			styleBankButton();
+			setScrollPane();
+			styleSidePanel();
 			addChildren();
+			
 			primaryStage.setScene(scene);
 			primaryStage.show();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+	}
+	
+	public static void styleSidePanel(){
+		DropShadow innerShadow = new DropShadow();
+		innerShadow.setOffsetX(-5);
+		innerShadow.setOffsetY(-5);
+		innerShadow.setColor(Color.web("0x222"));
+		sidePanel.setLayoutX(228);
+		sidePanel.setLayoutY(0);
+		sidePanel.setPrefWidth(28);
+		sidePanel.setPrefHeight(800);
+		sidePanel.setEffect(innerShadow);
+		sidePanel.getStyleClass().add("sidePanel");
+	}
+	
+	public static void styleTabArea(){
+		tabArea.setLayoutX(0);
+		tabArea.setLayoutY(0);
+		tabArea.setPrefWidth(280);
+		tabArea.setPrefHeight(800);
+		tabArea.getStyleClass().add("tabArea");
 	}
 
 	/**
@@ -127,23 +159,14 @@ public class Main extends Application {
 	/**
 	 * Generates a new loot and displays the image and label
 	 * 
-	 * @param index
-	 *            - The loot's id
-	 * @param itemId
-	 *            - The item id
-	 * @param amount
-	 *            - The amount of item
+	 * @param index - The loot's id
+	 * @param itemId  - The item id
+	 * @param amount - The amount of item
 	 */
 	public static void newLoot(int index, int itemId, int amount) {
-		if (lootCount == 63)
-			return;
 		for (int i = 0; i < item.length; i++) {
 			if (itemId == item[i]) {
-				styleLabel(
-						i,
-						Integer.parseInt(lblItemAmount[i].getTooltip()
-								.getText().replaceAll(",", ""))
-								+ amount);
+				styleLabel(i, Integer.parseInt(lblItemAmount[i].getTooltip() .getText().replaceAll(",", "")) + amount);
 				return;
 			}
 		}
@@ -157,7 +180,7 @@ public class Main extends Application {
 	 * Styles the slider
 	 */
 	public static void styleSlider() {
-		sldSpeed.setLayoutX(23);
+		sldSpeed.setLayoutX(15);
 		sldSpeed.setLayoutY(300);
 		sldSpeed.setPrefWidth(200);
 		sldSpeed.getStyleClass().add("slider");
@@ -197,7 +220,7 @@ public class Main extends Application {
 			item[index] = itemId;
 			if (firstPicture) {
 				newImage[index].setLayoutX(290);
-				newImage[index].setLayoutY(32);
+				newImage[index].setLayoutY(30);
 				firstPicture = false;
 			} else {
 				newImage[index].setLayoutX(lastPicPositionX + 64);
@@ -212,6 +235,7 @@ public class Main extends Application {
 			lastPicPositionX = (int) newImage[index].getLayoutX();
 			lastPicPositionY = (int) newImage[index].getLayoutY();
 			root.getChildren().add(newImage[index]);
+			System.out.println(newImage[index].getParent());
 			Tooltip t = new Tooltip(itemList.getItemName(itemId) + " : "
 					+ ItemList.itemIds[itemId]);
 			Tooltip.install(newImage[index], t);
@@ -265,6 +289,7 @@ public class Main extends Application {
 		if (labelCount == 8) {
 			lblItemAmount[index].setLayoutY(lastLabelPositionY + 64);
 			lblItemAmount[index].setLayoutX(290);
+			rowCount++;
 			labelCount = 0;
 		} else {
 			lblItemAmount[index].setLayoutY(lastLabelPositionY);
@@ -319,14 +344,17 @@ public class Main extends Application {
 	 * Adds all the children to the root
 	 */
 	public static void addChildren() {
+		root.getChildren().add(tabArea);
 		root.getChildren().add(btnGetNpcList);
 		root.getChildren().add(dropTable);
+		root.getChildren().add(sidePanel);
 		root.getChildren().add(btnSimulate);
 		root.getChildren().add(lblSimulateId);
 		root.getChildren().add(txtNpcId);
 		root.getChildren().add(lblAmount);
 		root.getChildren().add(txtAmountToKill);
-		root.getChildren().add(sldSpeed);
+		//root.getChildren().add(sldSpeed);
+		root.getChildren().add(scrollPane);
 		root.getChildren().add(clearBank);
 	}
 
@@ -377,7 +405,7 @@ public class Main extends Application {
 	public static void styleButtonSimulate() {
 		btnSimulate.setPrefHeight(40);
 		btnSimulate.setPrefWidth(200);
-		btnSimulate.setLayoutX(23);
+		btnSimulate.setLayoutX(15);
 		btnSimulate.setLayoutY(245);
 		btnSimulate.setText("Simulate Drops");
 		btnSimulate.getStyleClass().add("button");
@@ -385,8 +413,7 @@ public class Main extends Application {
 			@Override
 			public void handle(ActionEvent e) {
 				for (int i = 0; i < Integer.parseInt(txtAmountToKill.getText()); i++) {
-					SimulateDrops.SimulateDrop(
-							Integer.parseInt(txtNpcId.getText()), 1);
+					SimulateDrops.SimulateDrop(NpcList.getNpcIdByName(txtNpcId.getText()), 1);
 				}
 			}
 		});
@@ -398,7 +425,7 @@ public class Main extends Application {
 	public static void styleTxtNpcId() {
 		txtNpcId.setPrefHeight(40);
 		txtNpcId.setPrefWidth(200);
-		txtNpcId.setLayoutX(23);
+		txtNpcId.setLayoutX(15);
 		txtNpcId.setLayoutY(45);
 		txtNpcId.setText("0");
 		txtNpcId.getStyleClass().add("txtBoxes");
@@ -410,7 +437,7 @@ public class Main extends Application {
 	public static void styeTxtAmount() {
 		txtAmountToKill.setPrefHeight(40);
 		txtAmountToKill.setPrefWidth(200);
-		txtAmountToKill.setLayoutX(23);
+		txtAmountToKill.setLayoutX(15);
 		txtAmountToKill.setLayoutY(190);
 		txtAmountToKill.getStyleClass().add("txtBoxes");
 		txtAmountToKill.setText("0");
@@ -424,10 +451,24 @@ public class Main extends Application {
 		innerShadow.setOffsetX(4);
 		innerShadow.setOffsetY(4);
 		innerShadow.setColor(Color.web("0x111"));
-		dropTable.setPrefHeight(HEIGHT + 70);
-		dropTable.setPrefWidth(560);
+		dropTable.setPrefHeight(HEIGHT + 190);
+		dropTable.setPrefWidth(545);
 		dropTable.setLayoutX(250);
 		dropTable.setEffect(innerShadow);
+	}
+	
+	public static void setScrollPane(){
+		scrollPane.setContent(dropTable);
+		scrollPane.setLayoutY(-1);
+		scrollPane.setLayoutX(250);
+		scrollPane.setPrefHeight(548);
+		scrollPane.setPrefWidth(560);
+		scrollPane.hbarPolicyProperty().set(ScrollBarPolicy.NEVER);
+		scrollPane.getStyleClass().add("nScroll");
+	}
+	
+	public static void styleTabMain(){
+		
 	}
 
 	/**
@@ -436,9 +477,9 @@ public class Main extends Application {
 	public static void styleLabelNpcToSim() {
 		lblSimulateId.setPrefHeight(40);
 		lblSimulateId.setPrefWidth(200);
-		lblSimulateId.setLayoutX(23);
+		lblSimulateId.setLayoutX(15);
 		lblSimulateId.setLayoutY(5);
-		lblSimulateId.setText("Npc id to simulate");
+		lblSimulateId.setText("Npc Name To Simulate");
 		lblSimulateId.getStyleClass().add("lblSimulateId");
 	}
 
@@ -448,7 +489,7 @@ public class Main extends Application {
 	public static void styleLabelAmount() {
 		lblAmount.setPrefHeight(40);
 		lblAmount.setPrefWidth(200);
-		lblAmount.setLayoutX(23);
+		lblAmount.setLayoutX(15);
 		lblAmount.setLayoutY(150);
 		lblAmount.setText("Amount to kill");
 		lblAmount.getStyleClass().add("lblSimulateId");
@@ -460,7 +501,7 @@ public class Main extends Application {
 	public static void styleBtnGetNpcList() {
 		btnGetNpcList.setPrefHeight(40);
 		btnGetNpcList.setPrefWidth(200);
-		btnGetNpcList.setLayoutX(23);
+		btnGetNpcList.setLayoutX(15);
 		btnGetNpcList.setLayoutY(100);
 		btnGetNpcList.setText("Get Npc List");
 		btnGetNpcList.getStyleClass().add("button");

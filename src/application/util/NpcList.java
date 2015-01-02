@@ -73,7 +73,7 @@ public class NpcList {
 	 */
 	public static int getNpcIdByName(String name) {
 		for (int i = 0; i < 6800; i++) {
-			if (npcName.equals(name)) {
+			if (npcName[i].equalsIgnoreCase(name)) {
 				return i;
 			}
 		}
