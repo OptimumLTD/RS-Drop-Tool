@@ -4,6 +4,8 @@ import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 
 /**
  * This will class will load all the item data.
@@ -40,7 +42,7 @@ public class ItemList {
 		int counter = 0;
 		boolean endOfFile = false;
 		try {
-			file = new BufferedReader(new FileReader("data/itemlist.txt"));
+			file = new BufferedReader(new FileReader("./data/itemlist.txt"));
 		} catch (FileNotFoundException fileex) {
 			fileex.printStackTrace();
 		}
@@ -49,7 +51,7 @@ public class ItemList {
 		} catch (IOException ioexception1) {
 			endOfFile = true;
 		}
-		while (!endOfFile && line != null && counter != 12000) {
+		while(!endOfFile && line != null && counter != 12000){
 			String[] args = line.split("\t");
 			itemNames[counter] = args[1];
 			itemIds[counter] = Integer.parseInt(args[0]);

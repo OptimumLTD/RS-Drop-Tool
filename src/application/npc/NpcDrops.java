@@ -14,12 +14,6 @@ import java.util.StringTokenizer;
  */
 public class NpcDrops {
 
-	/**
-	 * Constructor for NpcDrops
-	 */
-	public NpcDrops() {
-		loadDrops();
-	}
 
 	/**
 	 * All the Drop Types
@@ -31,7 +25,7 @@ public class NpcDrops {
 	public static HashMap<Integer, int[][]> extremlyRareDrops = new HashMap<Integer, int[][]>();
 	public static HashMap<Integer, int[][]> otherDrops = new HashMap<Integer, int[][]>();
 	public static HashMap<Integer, int[]> constantDrops = new HashMap<Integer, int[]>();
-
+	
 	/**
 	 * All the Drop Rarities
 	 */
@@ -42,6 +36,13 @@ public class NpcDrops {
 	public static HashMap<Integer, Integer> uniqueRareDropRarity = new HashMap<Integer, Integer>();
 	public static HashMap<Integer, Integer> otherDropRarity = new HashMap<Integer, Integer>();
 
+	/**
+	 * Constructor for NpcDrops
+	 */
+	public NpcDrops() {
+		loadDrops();
+	}
+	
 	/**
 	 * Loads all the drops and handles the logics
 	 */

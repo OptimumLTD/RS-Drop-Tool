@@ -6,21 +6,11 @@ import application.util.Misc;
 
 /**
  * This class will handle the simulation of a drop
- * 
  * @author Zack/Optimum
  *
  */
 public class SimulateDrops {
-
-	/**
-	 * THis handles the algorith of getting a random drop and rarity from the
-	 * npcs drop table and will display it in the droptable
-	 * 
-	 * @param npcId
-	 *            - The targeted npc id
-	 * @param amount
-	 *            - The amount of kills
-	 */
+	
 	public static void SimulateDrop(int npcId, int amount) {
 		for (int i = 0; i < amount; i++) {
 			if (NpcDrops.constantDrops.get(npcId) != null) {
@@ -74,7 +64,6 @@ public class SimulateDrops {
 							NpcDrops.commonDrops.get(npcId)[random][1]);
 				}
 			}
-			NpcRareDropTable.process(npcId);
 		}
 	}
 
@@ -188,5 +177,5 @@ public class SimulateDrops {
 		else
 			return true;
 	}
-
+	
 }

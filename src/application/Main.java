@@ -104,7 +104,6 @@ public class Main extends Application {
 			styleSidePanel();
 			addChildren();
 			
-			newLoot(1, 1029, 1);
 			primaryStage.setScene(scene);
 			primaryStage.show();
 		} catch (Exception e) {
@@ -206,7 +205,7 @@ public class Main extends Application {
 		System.out.println("newItem = " + itemId);
 		try {
 			URL url = new URL(
-					"http://dropsimulator.comuv.com/Sprite%20Cache/images/"
+					"http://dropsimulator.comuv.com/Runescape%20drop%20sims/images/"
 							+ itemId + ".png");
 			image = ImageIO.read(url);
 			try{
