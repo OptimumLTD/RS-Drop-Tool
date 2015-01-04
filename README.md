@@ -8,7 +8,7 @@ wiki page so i cannot guarantee this tool is 100% accurate. But i will tell you 
 
 This is in alpha stage.
 
-Download
+Requirements
 ============
 This version requires an internet connection to download the images until i finish this program
 This also requires java 8 or it wont open
