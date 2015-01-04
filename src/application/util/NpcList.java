@@ -70,21 +70,15 @@ public class NpcList {
 
 	/**
 	 * Get Npcs the npc id by it's name
+	 * 
+	 * @param name
+	 * 				- The npc name
+	 * @return the npc's id
 	 */
 	public static int getNpcIdByName(String name) {
 		for (int i = 0; i < 6800; i++) {
 			if (npcName[i].equalsIgnoreCase(name)) {
 				return i;
-			}
-		}
-		return -1;
-	}
-	
-	public static int getNpcIdWithIndex(int npcId){
-		for(int i = 0; i < 6800; i++){
-			if(NpcList.npcId[i] == npcId) {
-				System.out.println("NpcId " + NpcList.npcId[i]);
-				return NpcList.npcId[i];
 			}
 		}
 		return -1;
@@ -106,6 +100,14 @@ public class NpcList {
 		return -1;
 	}
 	
+	/**
+	 * Returns the npc's health
+	 * 
+	 * @param npc 
+	 * 			- Npc's id
+	 * @return 
+	 * 			- npc's health
+	 */
 	public static int getNpcHealth(int npc) {
 		for (int i = 0; i < 6800; i++) {
 			if (npc == npcId[i]) {
