@@ -10,6 +10,11 @@ This is in alpha stage.
 
 Download
 ============
+This version requires an internet connection to download the images until i finish this program
+This also requires java 8 or it wont open
+
+Download
+============
  https://dl.dropboxusercontent.com/s/k0ifxtiam9oq94w/Runescape%20Drop%20Simulator.zip?dl=0
 
 Donate

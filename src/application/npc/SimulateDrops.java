@@ -64,6 +64,7 @@ public class SimulateDrops {
 							NpcDrops.commonDrops.get(npcId)[random][1]);
 				}
 			}
+			NpcRareDropTable.process(npcId);
 		}
 	}
 
