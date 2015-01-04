@@ -1,4 +1,4 @@
-RS-Drop-Tool
+Runescape Drop Simulator
 ============
 
 	Runescape Drop Simulator

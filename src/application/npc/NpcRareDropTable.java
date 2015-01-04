@@ -41,7 +41,7 @@ public class NpcRareDropTable {
 	/**
 	 * All the npc id's that can access the Rare drop table
 	 */
-	static int[] npcs = { 50, 3068, 1604, 1605, 1606, 1607, 12, 17, 2130, 2131,
+	static int[] npcs = {  6260, 50, 3068, 1604, 1605, 1606, 1607, 12, 17, 2130, 2131,
 			2132, 2133, 1618, 1619, 1600, 1601, 1602, 1603, 181, 2423, 1648,
 			1649, 1650, 1651, 1652, 1653, 1654, 1655, 1656, 1657, 6270, 1615,
 			1616, 202, 55, 193, 3200, 2263, 1612, 84, 178, 179, 1590, 1021, 54,
@@ -57,7 +57,7 @@ public class NpcRareDropTable {
 			126, 365, 1097, 182, 183, 184, 185, 1633, 1634, 1635, 1636, 53,
 			237, 391, 392, 393, 394, 395, 396, 1095, 1265, 1267, 413, 414, 415,
 			416, 417, 418, 1622, 1623, 205, 158, 459, 750, 1471, 90, 91, 92,
-			93, 6257, 6278, 2558, 6260, 6277, 6229, 6239, 6222, 6265, 6263,
+			93, 6257, 6278, 2558, 6277, 6229, 6239, 6222, 6265, 6263,
 			6261, 6223, 6225, 6227, 6204, 6206, 6208, 6203, 6247, 6248, 6250,
 			6252, 1592, 1096, 1101, 1102, 1103, 1104, 1105, 186, 438, 439, 440,
 			441, 442, 443, 2496, 2497, 1115, 1116, 1117, 1118, 1119, 1120,
@@ -75,12 +75,10 @@ public class NpcRareDropTable {
 	 *            - The targeted npc id
 	 */
 	public static void process(int i) {
-		if(NpcList.npcHealth[i] < 1)
-			return;
-		int newChance = Misc.random(400 / NpcList.npcHealth[NpcList.getNpcIndexId(i)]);
+		int newChance = Misc.random(1500 / NpcList.npcHealth[NpcList.getNpcHealth(i)]);
 		if (newChance == 0) {
 			for (int i2 = 0; i2 < npcs.length; i2++) {
-				if (NpcList.getNpcIndexId(i) == npcs[i2]) {
+				if (i == npcs[i2]) {
 					if (Misc.random(16) == 0) {
 						dropVeryRare();
 						return;

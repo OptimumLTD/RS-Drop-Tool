@@ -79,6 +79,16 @@ public class NpcList {
 		}
 		return -1;
 	}
+	
+	public static int getNpcIdWithIndex(int npcId){
+		for(int i = 0; i < 6800; i++){
+			if(NpcList.npcId[i] == npcId) {
+				System.out.println("NpcId " + NpcList.npcId[i]);
+				return NpcList.npcId[i];
+			}
+		}
+		return -1;
+	}
 
 	/**
 	 * Gets the npc's index value
@@ -90,7 +100,16 @@ public class NpcList {
 	public static int getNpcIndexId(int npc) {
 		for (int i = 0; i < 6800; i++) {
 			if (npc == npcId[i]) {
-				return npcId[i];
+				return i;
+			}
+		}
+		return -1;
+	}
+	
+	public static int getNpcHealth(int npc) {
+		for (int i = 0; i < 6800; i++) {
+			if (npc == npcId[i]) {
+				return i;
 			}
 		}
 		return -1;
