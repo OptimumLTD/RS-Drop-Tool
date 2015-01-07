@@ -220,9 +220,15 @@ public class Main extends Application {
 	 * @param amount - The amount of item
 	 */
 	public static void newLoot(int index, int itemId, int amount) {
+		root.getChildren().remove(clearBank);
+		root.getChildren().remove(goUpPage);
+		root.getChildren().remove(goDownPage);
 		for (int i = 0; i < item.length; i++) {
 			if (itemId == item[i]) {
 				styleLabel(i, Integer.parseInt(lblItemAmount[i].getTooltip() .getText().replaceAll(",", "")) + amount);
+				root.getChildren().add(clearBank);
+				root.getChildren().add(goUpPage);
+				root.getChildren().add(goDownPage);
 				return;
 			}
 		}
@@ -230,6 +236,9 @@ public class Main extends Application {
 		addLabel(index);
 		styleLabel(index, amount);
 		lootCount++;
+		root.getChildren().add(clearBank);
+		root.getChildren().add(goUpPage);
+		root.getChildren().add(goDownPage);
 		
 	}
 
@@ -480,6 +489,8 @@ public class Main extends Application {
 		txtNpcId.setPrefWidth(200);
 		txtNpcId.setLayoutX(15);
 		txtNpcId.setLayoutY(45);
+		Font n = Font.loadFont(Main.class.getResourceAsStream("runescape_uf.ttf"), 20);
+		txtNpcId.setFont(n);
 		txtNpcId.setText("0");
 		txtNpcId.getStyleClass().add("txtBoxes");
 	}
@@ -492,6 +503,8 @@ public class Main extends Application {
 		txtAmountToKill.setPrefWidth(200);
 		txtAmountToKill.setLayoutX(15);
 		txtAmountToKill.setLayoutY(190);
+		Font n = Font.loadFont(Main.class.getResourceAsStream("runescape_uf.ttf"), 20);
+		txtAmountToKill.setFont(n);
 		txtAmountToKill.getStyleClass().add("txtBoxes");
 		txtAmountToKill.setText("0");
 	}

@@ -19,7 +19,6 @@ AnchorPane {
 	-fx-background-radius: 15 0 15 0, 0 15 0 15;
 	-fx-border-radius: 15 0 15 0, 0 15 0 15;
 }
-	
 .button:focused{
      -fx-focus-color: transparent;
      -fx-background-insets: 0, 0, 1, 2;
@@ -38,20 +37,28 @@ AnchorPane {
 	-fx-font-size: 17;
 	-fx-alignment: center;
 }
+
 .txtBoxes {
-	-fx-text-fill: "#181D22";
-	-fx-font-size: 17;
+	-fx-text-fill: "#fff";
+
 }
 .txtBoxes *.text{
 	-fx-text-alignment: center;
 }
+.txtBoxes:focused{
+	 -fx-focus-color: transparent;
+     -fx-background-insets: 0, 0, 1, 2;
+}
 .txtBoxes .content {
-	-fx-background-color: "#FFF";
+	-fx-text-fill: "#fff";
+	-fx-background-color: "#443B2E";
+	-fx-focus-color: transparent;
+    -fx-background-insets: 0, 0, 1, 2;
 }
 .txtBoxes:active {
-	-fx-highlight-fill: "#00ff00";
-  	-fx-highlight-text-fill: "#000000";
+  	-fx-border-width: 0;
 }
+
 .tooltip {
 	-fx-background-color: "#443B2E";
 	-fx-text-fill: "#FF781F";
