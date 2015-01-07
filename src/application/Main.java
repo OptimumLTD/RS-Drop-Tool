@@ -78,9 +78,12 @@ public class Main extends Application {
 	static int lastPicPositionX = 0;
 	static int lastPicPositionY = 0;
 	static int pictureCount;
-	static int rowCount;
 	static boolean firstPicture = true;
-
+	
+	static Label goDownPage = new Label();
+	static Label goUpPage = new Label();
+	
+	
 	@Override
 	public void start(Stage primaryStage) {
 		try {
@@ -100,15 +103,69 @@ public class Main extends Application {
 			styleSlider();
 			styleDropTable();
 			styleBankButton();
+			goDownPage();
+			goUpPage();
 			setScrollPane();
 			styleSidePanel();
 			addChildren();
-			
 			primaryStage.setScene(scene);
 			primaryStage.show();
+			root.getChildren().add(clearBank);
+			root.getChildren().add(goUpPage);
+			root.getChildren().add(goDownPage);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+	}
+	
+	public static void goDownPage(){
+		Font n = Font.loadFont(Main.class.getResourceAsStream("runescape_uf.ttf"), 25);
+		goDownPage = new Label();
+		goDownPage.setText("Move Down");
+		goDownPage.setLayoutX(255);
+		goDownPage.setPrefWidth(185);
+		goDownPage.setFont(n);
+		goDownPage.setTextFill(Color.WHITE);
+		goDownPage.setLayoutY(515);
+		goDownPage.getStyleClass().add("clearBank");
+		goDownPage.setOnMouseClicked(new EventHandler<MouseEvent>() {
+			@Override
+			public void handle(MouseEvent arg0) {
+				for(int i = 0; i < 999; i++){
+					if(newImage[i] == null) continue;
+					if(lblItemAmount[i] == null) continue;
+					newImage[i].setLayoutY(newImage[i].getLayoutY() - 64);
+					lblItemAmount[i].setLayoutY(lblItemAmount[i].getLayoutY() - 64);
+				}
+				lastLabelPositionY -= 64;
+				lastPicPositionY -= 64;
+			}
+		});
+	}
+	
+	public static void goUpPage(){
+		Font n = Font.loadFont(Main.class.getResourceAsStream("runescape_uf.ttf"), 25);
+		goUpPage = new Label();
+		goUpPage.setText("Move Up");
+		goUpPage.setLayoutX(625);
+		goUpPage.setFont(n);
+		goUpPage.setTextFill(Color.WHITE);
+		goUpPage.setLayoutY(515);
+		goUpPage.setPrefWidth(185);
+		goUpPage.getStyleClass().add("clearBank");
+		goUpPage.setOnMouseClicked(new EventHandler<MouseEvent>() {
+			@Override
+			public void handle(MouseEvent arg0) {
+				for(int i = 0; i < 999; i++){
+					if(newImage[i] == null) continue;
+					if(lblItemAmount[i] == null) continue;
+					newImage[i].setLayoutY(newImage[i].getLayoutY() + 64);
+					lblItemAmount[i].setLayoutY(lblItemAmount[i].getLayoutY() + 64);
+				}
+				lastLabelPositionY += 64;
+				lastPicPositionY += 64;
+			}
+		});
 	}
 	
 	public static void styleSidePanel(){
@@ -151,7 +208,6 @@ public class Main extends Application {
 		lblItemAmount[index].setTextFill(setColor(index));
 		lblItemAmount[index].getStyleClass().add("lblItemAmount");
 		NumberFormat nf = NumberFormat.getInstance(Locale.ENGLISH);
-		
 		lblItemAmount[index]
 				.setTooltip(new Tooltip(nf.format(itemAmount) + ""));
 	}
@@ -164,20 +220,17 @@ public class Main extends Application {
 	 * @param amount - The amount of item
 	 */
 	public static void newLoot(int index, int itemId, int amount) {
-		if(lootCount == 64){
-			return;
-		}
 		for (int i = 0; i < item.length; i++) {
 			if (itemId == item[i]) {
 				styleLabel(i, Integer.parseInt(lblItemAmount[i].getTooltip() .getText().replaceAll(",", "")) + amount);
 				return;
 			}
 		}
-
 		addPicture(index, itemId);
 		addLabel(index);
 		styleLabel(index, amount);
 		lootCount++;
+		
 	}
 
 	/**
@@ -296,9 +349,9 @@ public class Main extends Application {
 		if (labelCount == 8) {
 			lblItemAmount[index].setLayoutY(lastLabelPositionY + 64);
 			lblItemAmount[index].setLayoutX(290);
-			rowCount++;
 			labelCount = 0;
-		} else {
+		}
+		else {
 			lblItemAmount[index].setLayoutY(lastLabelPositionY);
 		}
 		labelCount++;
@@ -360,27 +413,19 @@ public class Main extends Application {
 		root.getChildren().add(txtNpcId);
 		root.getChildren().add(lblAmount);
 		root.getChildren().add(txtAmountToKill);
-		//root.getChildren().add(sldSpeed);
 		root.getChildren().add(scrollPane);
-		root.getChildren().add(clearBank);
+
 	}
 
 	/**
 	 * Styles and places the clear bank button
 	 */
 	public static void styleBankButton() {
-		DropShadow dropShadow = new DropShadow();
-		dropShadow.setRadius(0);
-		dropShadow.setOffsetX(2);
-		dropShadow.setOffsetY(2);
-		dropShadow.setColor(Color.BLACK);
-		Font n = Font.loadFont(
-				Main.class.getResourceAsStream("runescape_uf.ttf"), 25);
+		Font n = Font.loadFont(Main.class.getResourceAsStream("runescape_uf.ttf"), 25);
 		clearBank.getStyleClass().add("clearBank");
 		clearBank.setFont(n);
-		clearBank.setEffect(dropShadow);
-		clearBank.setPrefWidth(100);
-		clearBank.setLayoutX(500);
+		clearBank.setPrefWidth(185);
+		clearBank.setLayoutX(440);
 		clearBank.setLayoutY(515);
 		clearBank.setText("Clear Bank");
 		clearBank.setOnMouseClicked(new EventHandler<MouseEvent>() {
@@ -460,7 +505,7 @@ public class Main extends Application {
 		innerShadow.setOffsetY(4);
 		innerShadow.setColor(Color.web("0x111"));
 		dropTable.setPrefHeight(HEIGHT + 190);
-		dropTable.setPrefWidth(545);
+		dropTable.setPrefWidth(565);
 		dropTable.setLayoutX(250);
 		dropTable.setEffect(innerShadow);
 	}
@@ -470,14 +515,12 @@ public class Main extends Application {
 		scrollPane.setLayoutY(-1);
 		scrollPane.setLayoutX(250);
 		scrollPane.setPrefHeight(548);
-		scrollPane.setPrefWidth(560);
+		scrollPane.setPrefWidth(580);
 		scrollPane.hbarPolicyProperty().set(ScrollBarPolicy.NEVER);
+		scrollPane.vbarPolicyProperty().set(ScrollBarPolicy.NEVER);
 		scrollPane.getStyleClass().add("nScroll");
 	}
 	
-	public static void styleTabMain(){
-		
-	}
 
 	/**
 	 * Styles the npc id label

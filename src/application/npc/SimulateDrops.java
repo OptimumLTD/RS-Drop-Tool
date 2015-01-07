@@ -24,14 +24,11 @@ public class SimulateDrops {
 					|| NpcDrops.extremlyRareDropRarity.get(npcId) != null
 					|| NpcDrops.otherDropRarity.get(npcId) != null) {
 				if (otherDrops(npcId) && otherDropCheck(npcId)) {
-					int random = Misc
-							.random(NpcDrops.otherDrops.get(npcId).length - 1);
-					Main.newLoot(Main.lootCount,
-							NpcDrops.otherDrops.get(npcId)[random][0],
+					int random = Misc.random(NpcDrops.otherDrops.get(npcId).length - 1);
+					Main.newLoot(Main.lootCount, NpcDrops.otherDrops.get(npcId)[random][0],
 							NpcDrops.otherDrops.get(npcId)[random][1]);
 					System.out.println(ItemList.getItemName(NpcDrops.otherDrops.get(npcId)[random][0]) + " drop on : " + i + "/" + amount);
-				} else if (extremlyRareDrops(npcId)
-						&& extremlyRareDropCheck(npcId)) {
+				} else if (extremlyRareDrops(npcId) && extremlyRareDropCheck(npcId)) {
 					int random = Misc.random(NpcDrops.extremlyRareDrops
 							.get(npcId).length - 1);
 					Main.newLoot(Main.lootCount,
@@ -40,8 +37,7 @@ public class SimulateDrops {
 					System.out.println(ItemList.getItemName(NpcDrops.extremlyRareDrops.get(npcId)[random][0]) + " drop on : " + i + "/" + amount);
 				} else if (veryRareDrops(npcId) && veryRareDropCheck(npcId)) {
 					int random = Misc.random(NpcDrops.veryRareDrops.get(npcId).length - 1);
-					Main.newLoot(Main.lootCount,
-							NpcDrops.veryRareDrops.get(npcId)[random][0],
+					Main.newLoot(Main.lootCount, NpcDrops.veryRareDrops.get(npcId)[random][0],
 							NpcDrops.veryRareDrops.get(npcId)[random][1]);
 					System.out.println(ItemList.getItemName(NpcDrops.veryRareDrops.get(npcId)[random][0]) + " drop on : " + i + "/" + amount);
 				} else if (rareDrops(npcId) && rareDropCheck(npcId)) {

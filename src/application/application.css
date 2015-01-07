@@ -18,7 +18,7 @@ AnchorPane {
 	-fx-background-radius: 30;
 	-fx-background-radius: 15 0 15 0, 0 15 0 15;
 	-fx-border-radius: 15 0 15 0, 0 15 0 15;
-	}
+}
 	
 .button:focused{
      -fx-focus-color: transparent;
@@ -79,9 +79,11 @@ AnchorPane {
 }
 .clearBank{
 	-fx-text-fill: #fff;
+	-fx-background-color: "#443B2E";
+	-fx-alignment: center;
 }
 .clearBank:hover {
-	-fx-text-fill: #eee;
+	-fx-text-fill: #f0f;
 	-fx-cursor: hand;
 }
 .nScroll{

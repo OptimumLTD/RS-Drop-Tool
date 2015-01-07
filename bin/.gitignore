@@ -57,5 +57,10 @@ $RECYCLE.BIN/
 
 # Windows shortcuts
 *.lnk
+/.classpath
+/.gitattributes
+/.gitignore
+/.project
+/.settings/
+/README.md
 /application/
-/data/
