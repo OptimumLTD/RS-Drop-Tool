@@ -10,18 +10,7 @@ import java.util.Locale;
  *
  */
 public class Misc {
-
-	/**
-	 * Generates a random number
-	 * 
-	 * @param range
-	 *            - the max random number value
-	 * @return random number
-	 */
-	public static int random(int range) {
-		return (int) (java.lang.Math.random() * (range + 1));
-	}
-
+	
 	/**
 	 * Adds a comma format to {@link number}
 	 * 

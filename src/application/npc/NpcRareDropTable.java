@@ -1,5 +1,7 @@
 package application.npc;
 
+import java.security.SecureRandom;
+
 import application.Main;
 import application.util.Misc;
 import application.util.NpcList;
@@ -13,6 +15,8 @@ import application.util.NpcList;
  */
 
 public class NpcRareDropTable {
+	
+	private static SecureRandom rnd = new SecureRandom();
 
 	/**
 	 * This array contains all of the Common drop data
@@ -75,17 +79,17 @@ public class NpcRareDropTable {
 	 *            - The targeted npc id
 	 */
 	public static void process(int i) {
-		int newChance = Misc.random(1500 / NpcList.npcHealth[NpcList.getNpcHealth(i)]);
+		int newChance = rnd.nextInt(1500 / NpcList.npcHealth[NpcList.getNpcHealth(i)]);
 		if (newChance == 0) {
 			for (int i2 = 0; i2 < npcs.length; i2++) {
 				if (i == npcs[i2]) {
-					if (Misc.random(16) == 0) {
+					if (rnd.nextInt(16) == 0) {
 						dropVeryRare();
 						return;
-					} else if (Misc.random(10) == 0) {
+					} else if (rnd.nextInt(10) == 0) {
 						dropRare();
 						return;
-					} else if (Misc.random(5) == 0) {
+					} else if (rnd.nextInt(5) == 0) {
 						dropUncommon();
 						return;
 					} else {
@@ -103,7 +107,7 @@ public class NpcRareDropTable {
 	 * on the ground
 	 */
 	private static void dropCommon() {
-		int index = Misc.random(COMMON.length - 1);
+		int index = rnd.nextInt(COMMON.length - 1);
 		int itemId = COMMON[index][0];
 		int itemAmount = COMMON[index][1];
 		Main.newLoot(Main.lootCount, itemId, itemAmount);
@@ -114,7 +118,7 @@ public class NpcRareDropTable {
 	 * on the ground
 	 */
 	private static void dropUncommon() {
-		int index = Misc.random(UNCOMMON.length - 1);
+		int index = rnd.nextInt(UNCOMMON.length - 1);
 		int itemId = UNCOMMON[index][0];
 		int itemAmount = UNCOMMON[index][1];
 		Main.newLoot(Main.lootCount, itemId, itemAmount);
@@ -125,7 +129,7 @@ public class NpcRareDropTable {
 	 * the ground
 	 */
 	public static void dropRare() {
-		int index = Misc.random(RARE.length - 1);
+		int index = rnd.nextInt(RARE.length - 1);
 		int itemId = RARE[index][0];
 		int itemAmount = RARE[index][1];
 		Main.newLoot(Main.lootCount, itemId, itemAmount);
@@ -136,7 +140,7 @@ public class NpcRareDropTable {
 	 * spawn on the ground
 	 */
 	public static void dropVeryRare() {
-		int index = Misc.random(VERY_RARE.length - 1);
+		int index = rnd.nextInt(VERY_RARE.length - 1);
 		int itemId = VERY_RARE[index][0];
 		int itemAmount = VERY_RARE[index][1];
 		Main.newLoot(Main.lootCount, itemId, itemAmount);
